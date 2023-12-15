@@ -2,6 +2,7 @@
 import os
 
 CARPETA = 'contactos/' # Variable que será una constante y almacenará la ruta de la carpeta contactos
+EXTENSION = '.txt' #Extensión de archivos
 
 def app():
     #Revisa si la carpeta existe o no 
@@ -17,7 +18,7 @@ def app():
 
         # Ejecutar las opciones
         if opcion == 1:
-            print('Agregar nuevo contacto')
+            agregar_contacto()
             preguntar = False
         elif opcion == 2:
             print('Editar Contacto')
@@ -34,6 +35,16 @@ def app():
         else:
             print('Opción no válida, intente de nuevo')
 
+#Función para agregar un nuevo contacto 
+def agregar_contacto():
+    print('Escribe los datos para agregar el nuevo Contacto')
+    nombre_contacto = input('Nombre del Contacto:\r\n')
+
+    #Crear el archivo con el nombre que da el usuario
+    with open(CARPETA + nombre_contacto + EXTENSION, 'w') as archivo:
+        archivo.write('Nombre: ' + nombre_contacto + '\r\n')
+
+#Función que muestra el menú de opciones
 def mostrar_menu():
     print('Seleccione del menú lo que desees hacer:')
     print('1) Agregar Nuevo Contacto')
