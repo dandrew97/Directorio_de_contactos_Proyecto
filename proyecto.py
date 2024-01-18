@@ -4,6 +4,13 @@ import os
 CARPETA = 'contactos/' # Variable que será una constante y almacenará la ruta de la carpeta contactos
 EXTENSION = '.txt' #Extensión de archivos
 
+#Clase Contactos
+class Contacto:
+    def __init__(self, nombre, telefono, categoria):
+        self.nombre = nombre
+        self.telefono = telefono
+        self.categoria = categoria
+
 def app():
     #Revisa si la carpeta existe o no 
     crear_directorio()
@@ -39,10 +46,24 @@ def app():
 def agregar_contacto():
     print('Escribe los datos para agregar el nuevo Contacto')
     nombre_contacto = input('Nombre del Contacto:\r\n')
-
+ 
     #Crear el archivo con el nombre que da el usuario
     with open(CARPETA + nombre_contacto + EXTENSION, 'w') as archivo:
-        archivo.write('Nombre: ' + nombre_contacto + '\r\n')
+
+        # Resto de atributos 
+        telefono_contacto = input('Agrega el número telefónico:\r\n')
+        categoria_contacto = input('Categoría Contacto:\r\n')
+
+        # instanciar la clase
+        contacto = Contacto(nombre_contacto, telefono_contacto, categoria_contacto)
+
+        # Escribir en el archivo 
+        archivo.write('Nombre: ' + contacto.nombre + '\r')
+        archivo.write('Telefono: ' + contacto.telefono + '\r')
+        archivo.write('Categoria: ' + contacto.categoria + '\r')
+
+        #Mostrar un mensaje de éxito 
+        print('\r\n Contacto creado correctamente \r\n')
 
 #Función que muestra el menú de opciones
 def mostrar_menu():
