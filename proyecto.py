@@ -35,14 +35,43 @@ def app():
             mostrar_contacto()
             preguntar = False
         elif opcion == 4:
-            print('Buscar Contacto') # buscar_contacto()
+            buscar_contacto()
             preguntar = False
         elif opcion == 5:
-            print('Eliminar Contacto') #eliminar_contacto()
+            eliminar_contacto()
             preguntar = False
         else:
             print('Opción no válida, intente de nuevo')
 
+def eliminar_contacto():
+    nombre = input('Seleccione el contacto que desea eliminar: \r\n')
+
+    try:
+        os.remove(CARPETA + nombre + EXTENSION)
+        print('Eliminado correctamente')
+    except IOError:
+        print('No existe ese contacto ')
+
+    # reiniciar la app
+    app()
+        
+# Función para buscar un contacto
+def buscar_contacto():
+    nombre = input('Nombre del contacto que deseas buscar: \r\n')
+
+    try:
+        with open(CARPETA + nombre + EXTENSION) as contacto:
+            print('Información del Contacto:')
+            for linea in contacto:
+                print(linea.rstrip()) 
+                print()
+    except IOError:
+        print('El archivo no existe')
+        print(IOError)
+
+    # reiniciar la app
+    app()
+    
 # Función para buscar contacto - READ en el CRUD
 def mostrar_contacto():
     print('Lista de contactos:')
@@ -74,7 +103,7 @@ def mostrar_contacto_dos(): # Otra manera de buscar contactos
             # Imprime un separador entre contactos
             print()
                        
-#Función para editar un contacto existente 
+# Función para editar un contacto existente 
 def editar_contacto():
     print('Escribe el nombre del contacto a editar')
     nombre_anterior = input('Nombre del contacto que desea editar: \r\n')
@@ -110,7 +139,7 @@ def editar_contacto():
     # Reiniciar la app
     app()
 
-#Función para agregar un nuevo contacto - CREATE en el CRUD
+# Función para agregar un nuevo contacto - CREATE en el CRUD
 def agregar_contacto():
     print('Escribe los datos para agregar el nuevo Contacto')
     nombre_contacto = input('Nombre del Contacto:\r\n')
@@ -144,7 +173,7 @@ def agregar_contacto():
     # Reiniciar la app
     app()
 
-#Función que muestra el menú de opciones
+# Función que muestra el menú de opciones
 def mostrar_menu():
     print('Seleccione del menú lo que desees hacer:')
     print('1) Agregar Nuevo Contacto')
@@ -158,7 +187,7 @@ def crear_directorio():
     if not os.path.exists(CARPETA):
         os.makedirs(CARPETA)
 
-#Función que retorna un valor para revisar si el contacto existe o no; esta funcion es usada en la línea 52
+# Función que retorna un valor para revisar si el contacto existe o no; esta funcion es usada en la línea 52
 def existe_contacto(nombre):
     return os.path.isfile(CARPETA + nombre + EXTENSION)
     
