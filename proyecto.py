@@ -22,7 +22,7 @@ def app():
     # Preguntar al usuario la acciona a realizar
     preguntar = True
     while preguntar:
-        opcion = int(input('Selecciones una opción: \r\n'))
+        opcion = int(input('Seleccione una opción: \r\n'))
 
         # Ejecutar las opciones
         if opcion == 1:
@@ -32,17 +32,48 @@ def app():
             editar_contacto()
             preguntar = False
         elif opcion == 3:
-            print('Ver Contactos')
+            mostrar_contacto()
             preguntar = False
         elif opcion == 4:
-            print('Buscar Contacto')
+            print('Buscar Contacto') # buscar_contacto()
             preguntar = False
         elif opcion == 5:
-            print('Eliminar Contacto')
+            print('Eliminar Contacto') #eliminar_contacto()
             preguntar = False
         else:
             print('Opción no válida, intente de nuevo')
 
+# Función para buscar contacto - READ en el CRUD
+def mostrar_contacto():
+    print('Lista de contactos:')
+    # Listar todos los archivos en la carpeta de contactos 
+    archivos = os.listdir(CARPETA)
+
+    if archivos:
+        for archivo in archivos:
+            if archivo.endswith(EXTENSION): # Verificar si el archivo es un contacto
+                with open (CARPETA + archivo, 'r') as file:
+                    print(f'{file.readline().strip()}') 
+                    print(f'{file.readline().strip()}') 
+                    print(f'{file.readline().strip()}')
+                    print()
+    else:
+        print('No hay contactos registrados')
+
+def mostrar_contacto_dos(): # Otra manera de buscar contactos
+    # Listar todos los archivos en la carpeta de contactos 
+    archivos = os.listdir(CARPETA)
+
+    archivos_txt = [i for i in archivos if i.endswith(EXTENSION)]
+
+    for archivo in archivos_txt:
+        with open(CARPETA + archivo) as contacto:
+            for linea in contacto:
+                #Imprime los contenidos
+                print(linea.rstrip)
+            # Imprime un separador entre contactos
+            print()
+                       
 #Función para editar un contacto existente 
 def editar_contacto():
     print('Escribe el nombre del contacto a editar')
@@ -79,7 +110,7 @@ def editar_contacto():
     # Reiniciar la app
     app()
 
-#Función para agregar un nuevo contacto 
+#Función para agregar un nuevo contacto - CREATE en el CRUD
 def agregar_contacto():
     print('Escribe los datos para agregar el nuevo Contacto')
     nombre_contacto = input('Nombre del Contacto:\r\n')
